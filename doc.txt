@@ -1,0 +1,23 @@
+//  without chaining the methods look like
+
+app.get("/articles", (req, res) => {
+  Article.find((err, articles) => {
+    err ? res.send(err) : res.send(articles);
+  });
+});
+
+app.post("/articles", (req, res) => {
+  const newArticle = new Article({
+    title: req.body.title,
+    content: req.body.content,
+  });
+  newArticle.save((err) => {
+    err ? res.send(err) : res.send("successful");
+  });
+});
+
+app.delete("/articles", (req, res) => {
+  Article.deleteMany((err) => {
+    err ? res.send(err) : res.send("deleted all entries");
+  });
+});
